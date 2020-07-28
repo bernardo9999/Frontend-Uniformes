@@ -1,6 +1,6 @@
 # Uniformes-Front-end
 
-# Como implementar
+## Como implementar
 
 1. Git clone do repositório
 Nota: devemos instalar a versao de node 10.13 ou superior (Requerido por Angular 8). Para gerenciar versões de Node podemos utilizar o "nvm" (node version manager)
