@@ -1,0 +1,26 @@
+.dialog{
+    background-color: #FFD740;
+    padding:10px;
+    height: 270px;
+}
+.mat-dialog-content{
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.header-dialog{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.button-dialog{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.mat-raised-button{
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    margin: 10px;
+}

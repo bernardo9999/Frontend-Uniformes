@@ -1,0 +1,59 @@
+<mat-toolbar>
+    <span>{{"Processar Uniforme - Contrato: "}}{{id}} {{"Lote: "}}{{lote_id}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="button-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="form_uniforme" class="form-uniforme" (submit)="onSubmit()">
+    <mat-grid-list cols="1" rowHeight="450px">
+        <mat-grid-tile>
+            <div class="controles-container">
+
+                <!-- <input type="hidden" formControlName="asset_owner"> -->
+
+                <mat-form-field>
+                    <input formControlName="rfid" [(ngModel)]="uniforme.rfid" matInput placeholder="Rfid" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select formControlName="status" [(ngModel)]="uniforme.status" matInput placeholder="Status" required>
+                        <ng-container *ngFor="let opcao of status">
+                            <mat-option value="{{opcao.id}}">{{opcao.value}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input formControlName="funcionario" [(ngModel)]="uniforme.funcionario" matInput placeholder="Funcionario" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input formControlName="matricula" [(ngModel)]="uniforme.matricula" matInput placeholder="Matricula" required>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select formControlName="area" [(ngModel)]="uniforme.area" MatInput placeholder="Area" required>
+                        <ng-container *ngFor="let opcao of area">
+                            <mat-option value="{{opcao.id}}">{{opcao.value}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input formControlName="data" matInput [value]="uniforme.data"
+                        [matDatepicker]="data" placeholder="Data" required readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+                    <mat-datepicker #data></mat-datepicker>
+                    <mat-error>Este campo é mandatório</mat-error>
+                </mat-form-field>
+            
+                <div class="button-row">
+                    <button mat-raised-button color="primary" [disabled]="form_uniforme.invalid"
+                        type="submit">Submeter</button>
+                    <button mat-raised-button color="accent" (click)="onClear()">Limpar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

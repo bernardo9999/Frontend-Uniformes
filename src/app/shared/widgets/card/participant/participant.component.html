@@ -1,0 +1,258 @@
+<div class="header-contrato-lote">
+    <div class="contrato">
+        <mat-icon>import_contacts</mat-icon>
+        <p>Novo Contrato</p>
+        <form [formGroup]="form_contrato" class="form-add" (submit)="onSubmitCreateContrato()">
+            <mat-grid-list cols="2" rowHeight="60px" gutterSize="10px">
+                <mat-grid-tile>
+                    <mat-form-field class="form-full-width-add">
+                        <input formControlName="id" matInput placeholder="Código" required>
+                        <input type="hidden" formControlName="lote">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button class="mat-raised-button" mat-raised-button color="primary" type="submit">Adicionar</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </div>
+    <div class="contrato">
+        <mat-icon>create_new_folder</mat-icon>
+        <p>Novo Lote</p>
+        <form [formGroup]="form_lote" class="form-search" (submit)="onCreateLote()">
+            <mat-grid-list cols="3" rowHeight="60px" gutterSize="10px">
+                <mat-grid-tile>
+                    <mat-form-field class="form-full-width-search">
+                        <input formControlName="id" matInput placeholder="Contrato" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="form-full-width-search">
+                        <input formControlName="lote_id" matInput placeholder="Lote" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button class="mat-raised-button" mat-raised-button color="primary" type="submit">Adicionar</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </div>
+    <div class="lote">
+        <mat-icon>search</mat-icon>
+        <p>Pesquisar</p>
+        <form [formGroup]="form_lote" class="form-search" (submit)="onSubmitSearchContratoLote()">
+            <mat-grid-list cols="3" rowHeight="60px" gutterSize="10px">
+                <mat-grid-tile>
+                    <mat-form-field class="form-full-width-search">
+                        <input formControlName="id" matInput placeholder="Contrato" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="form-full-width-search">
+                        <input formControlName="lote_id" matInput placeholder="Lote" required>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <button class="mat-raised-button" mat-raised-button color="primary" type="submit"
+                        [disabled]="form_lote.invalid">Pesquisar</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+<!-- ========================================================================================= -->
+<!-- ========================================================================================= -->
+<!-- ========================================================================================= -->
+
+<div class="stats-cards">
+    <mat-card class="card" fxLayout="column" fxLayoutAlign=" none">
+        <mat-card-header class="card-header">
+            <div mat-card-avatar class="mat-card-avatar-compras"></div>
+            <mat-card-title class="card-title">Compras</mat-card-title>
+            <mat-card-subtitle class="card-subtitle">Porto Seguro</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <div class="card-img">
+                <img mat-card-img class="mat-card-img" src="../../../../../assets/img/Compras1.jpg">
+            </div>
+            <div class="card-details-title">
+                <p>Detalhes</p>
+            </div>
+            <div class="card-details">
+                <p>Contrato: {{(id) ? (id) : '--' }}
+                </p>
+                <p>Lote: {{(lote.lote_id) ? (lote.lote_id) : '--'}}</p>
+                <p>Status: <b class="text-bold">{{(lote.status_compras) ? (lote.status_compras) : '--' }}</b></p>
+                <p>Data Pedido:
+                    <time class="data_inicio_compras"
+                        [dateTime]="lote.data_inicio_compras">{{lote.data_inicio_compras | date: 'dd/MM/yyyy'}} </time>
+                </p>
+                <p>Quantidade: {{lote.quantidade_compras}}</p>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button color="primary" (click)="onUpdateCompras(lote)">Processar</button>
+            <button mat-button color="primary" (click)="onDialogBlockchainCompras()">Blockchain</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- ========================================================================================= -->
+
+
+    <mat-card class="card" fxLayout="column" fxLayoutAlign=" none">
+        <mat-card-header class="card-header">
+            <div mat-card-avatar class="mat-card-avatar-fabricante"></div>
+            <mat-card-title>Fabricante</mat-card-title>
+            <mat-card-subtitle>Textil Co.</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <div class="card-img">
+                <img mat-card-img src="../../../../../assets/img/Fabricante1.jpg" class="mat-card-img">
+            </div>
+            <div class="card-details-title">
+                <p>Detalhes</p>
+            </div>
+            <div class="card-details">
+                <p>Status: <b>{{(lote.status_fabricante) ? (lote.status_fabricante) : '--' }}</b></p>
+                <p>Conf Pedido: {{(lote.valida_quantidade_fabricante) ? 'Sim': 'Não'}}</p>
+                <p>Qualidade: {{lote.qualidade_fabricante}}</p>
+                <p>Data Inicio:
+                    <time class="data_inicio_fabricante"
+                        [dateTime]="lote.data_inicio_fabricante">{{lote.data_inicio_fabricante | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+                <p>Data Estimada:
+                    <time class="data_estimada_fabricante"
+                        [dateTime]="lote.data_estimada_fabricante">{{lote.data_estimada_fabricante | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+                <p>Data Entrega:
+                    <time class="data_fim_fabricante"
+                        [dateTime]="lote.data_fim_fabricante">{{lote.data_fim_fabricante | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button color="primary" (click)="onUpdateFabricante(lote)">Processar</button>
+            <button mat-button color="primary" (click)="onDialogBlockchainFabricante()">Blockchain</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- ========================================================================================= -->
+
+    <mat-card class="card" fxLayout="column" fxLayoutAlign="none">
+        <mat-card-header class="card-header">
+            <div mat-card-avatar class="mat-card-avatar-transportadora"></div>
+            <mat-card-title>Transportadora</mat-card-title>
+            <mat-card-subtitle>Cross Roads</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <div class="card-img">
+                <img mat-card-img src="../../../../../assets/img/Transportadora1.jpg" class="mat-card-img">
+            </div>
+            <div class="card-details-title">
+                <p>Detalhes</p>
+            </div>
+            <div class="card-details">
+                <p>Status: <b>{{(lote.status_transportadora) ? (lote.status_transportadora) : '--' }}</b></p>
+                <p>Data Inicio:
+                    <time class="data_inicio_transportadora"
+                        [dateTime]="lote.data_inicio_transportadora">{{lote.data_inicio_transportadora | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+                <p>Data Estimada:
+                    <time class="data_estimada_transportadora"
+                        [dateTime]="lote.data_estimada_transportadora">{{lote.data_estimada_transportadora | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+                <p>Data Entrega:
+                    <time class="data_fim_transportadora"
+                        [dateTime]="lote.data_fim_transportadora">{{lote.data_fim_transportadora | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button color="primary" (click)="onUpdateTransportadora(lote)">Processar</button>
+            <button mat-button color="primary" (click)="onDialogBlockchainTransportadora()">Blockchain</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- ========================================================================================= -->
+
+    <mat-card class="card" fxLayout="column" fxLayoutAlign="none">
+        <mat-card-header class="card-header">
+            <div mat-card-avatar class="mat-card-avatar-cd"></div>
+            <mat-card-title>CD</mat-card-title>
+            <mat-card-subtitle>Porto Seguro</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <div class="card-img">
+                <img mat-card-img src="../../../../../assets/img/cd1.jpg" class="mat-card-img">
+            </div>
+            <div class="card-details-title">
+                <p>Detalhes</p>
+            </div>
+            <div class="card-details">
+                <p>Status: <b>{{(lote.status_cd) ? (lote.status_cd) : '--' }}</b></p>
+                <p>Conf. Qualidade: {{(lote.valida_qualidade_cd) ? 'Sim': 'Não'}}</p>
+                <p>Data Inicio:
+                    <time class="data_inicio_cd"
+                        [dateTime]="lote.data_inicio_cd">{{lote.data_inicio_cd | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+                <p>Data Estimada:
+                    <time class="data_estimada_cd"
+                        [dateTime]="lote.data_estimada_cd">{{lote.data_estimada_cd | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+                <p>Data Entrega:
+                    <time class="data_fim_cd" [dateTime]="lote.data_fim_cd">{{lote.data_fim_cd | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button color="primary" (click)="onUpdateCd(lote)">Processar</button>
+            <button mat-button color="primary" (click)="onDialogBlockchainCd()">Blockchain</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- ========================================================================================= -->
+
+    <mat-card class="card" fxLayout="column" fxLayoutAlign=" none">
+        <mat-card-header class="card-header">
+            <div mat-card-avatar class="mat-card-avatar-fornecedor"></div>
+            <mat-card-title>Prestador</mat-card-title>
+            <mat-card-subtitle>Porto Seguro</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="card-content">
+            <div class="card-img">
+                <img mat-card-img src="../../../../../assets/img/Fornecedor1.jpg" class="mat-card-img">
+            </div>
+            <div class="card-details-title">
+                <p>Detalhes</p>
+            </div>
+            <div class="card-details">
+                <p>Status: <b>{{(lote.status_fornecedor) ? (lote.status_fornecedor) : '--'}}</b></p>
+                <p>Data Recebimento:
+                    <time class="data_inicio_fornecedor"
+                        [dateTime]="lote.data_inicio_fornecedor">{{lote.data_inicio_fornecedor | date: 'dd/MM/yyyy'}}
+                    </time>
+                </p>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-button color="primary" (click)="onUpdateFornecedor(lote)">Concluir</button>
+            <button mat-button color="primary" (click)="onDialogBlockchainFornecedor()">Blockchain</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

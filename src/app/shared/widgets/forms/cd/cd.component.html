@@ -1,0 +1,65 @@
+<mat-toolbar>
+    <span>{{"Criar/ Atualizar Lote - Contrato: "}}{{lote.id}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="button-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<div mat-dialog-content>
+    <form [formGroup]="form_cd" class="form-cd" (submit)="onSubmit()">
+        <mat-grid-list cols="2" rowHeight="310px">
+            <mat-grid-tile>
+                <div class="controles-container">
+                    <input type="hidden" formControlName="asset_owner">
+                    <mat-form-field>
+                        <input formControlName="lote_id" [(ngModel)]="lote.lote_id" matInput placeholder="Id do Lote"
+                            required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select formControlName="status_cd" [(ngModel)]="lote.status_cd" placeholder="Status"
+                            required>
+                            <ng-container *ngFor="let opcao of status">
+                                <mat-option value="{{opcao.id}}">{{opcao.value}}</mat-option>
+                            </ng-container>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="data_inicio_cd" matInput [value]="lote.data_inicio_cd"
+                            [matDatepicker]="data_inicio_cd" placeholder="Data Entrada" required readonly>
+                        <mat-datepicker-toggle matSuffix [for]="data_inicio_cd"></mat-datepicker-toggle>
+                        <mat-datepicker #data_inicio_cd></mat-datepicker>
+                        <mat-error>Este campo é mandatório</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="data_estimada_cd" matInput [value]="lote.data_estimada_cd"
+                            [matDatepicker]="data_estimada_cd" placeholder="Data Estimada Conclusão" required readonly>
+                        <mat-datepicker-toggle matSuffix [for]="data_estimada_cd"></mat-datepicker-toggle>
+                        <mat-datepicker #data_estimada_cd></mat-datepicker>
+                    </mat-form-field>
+
+                    <div class="button-row">
+                        <button mat-raised-button color="primary" [disabled]="form_cd.invalid"
+                            type="submit">Submeter</button>
+                        <button mat-raised-button color="accent" (click)="onClear()">Limpar</button>
+                    </div>
+                </div>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <div class="controles-container">
+                    <div class="add-bottom-padding">
+                        <mat-checkbox formControlName="valida_qualidade_cd" [(ngModel)]="lote.valida_qualidade_cd"
+                            required>Qualidade confere?
+                        </mat-checkbox>
+                    </div>
+                    <mat-form-field>
+                        <input formControlName="data_fim_cd" matInput [value]="lote.data_fim_cd"
+                            [matDatepicker]="data_fim_cd" placeholder="Data Saída">
+                        <mat-datepicker-toggle matSuffix [for]="data_fim_cd"></mat-datepicker-toggle>
+                        <mat-datepicker #data_fim_cd></mat-datepicker>
+                        <mat-hint align="end">SLA: 15 dias da data de inicio</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>

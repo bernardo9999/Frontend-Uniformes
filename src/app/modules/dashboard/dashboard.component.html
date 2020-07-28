@@ -1,0 +1,58 @@
+<div class="title" fxLayout="row" fxLayoutAlign="center center">
+    <h1>Dashboard Lote de Uniformes</h1>
+</div>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<!-- Participants -->
+
+<app-participant></app-participant>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<!-- Big Chart -->
+
+<div>
+    <app-widget-area [data]="bigChart"></app-widget-area>
+</div>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<!-- Cards -->
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+    <mat-card fxFlex="25">
+        <app-widget-card label="New Users" total="12k" percentage="50" [data]="cards"></app-widget-card>
+    </mat-card>
+    <mat-card fxFlex="25">
+        <app-widget-card label="User retention" total="10k" percentage="40" [data]="cards"></app-widget-card>
+    </mat-card>
+    <mat-card fxFlex="25">
+        <app-widget-card label="User engagement" total="8k" percentage="50" [data]="cards"></app-widget-card>
+    </mat-card>
+    <mat-card fxFlex="25">
+        <app-widget-card label="Referral" total="6k" percentage="20" [data]="cards"></app-widget-card>
+    </mat-card>
+</div>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<!-- Tabele & Pie -->
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="60">
+        <app-table-uniforme></app-table-uniforme>
+    </div>
+    <div fxFlex="40">
+        <!-- <app-widget-pie [data]="pieChart"></app-widget-pie> -->
+        <app-widget-pie></app-widget-pie>
+    </div>
+</div>

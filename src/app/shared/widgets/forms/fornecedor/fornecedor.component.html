@@ -1,0 +1,38 @@
+<mat-toolbar>
+    <span>{{"Criar/ Atualizar Lote - Contrato: "}}{{lote.id}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="button-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<div mat-dialog-content>
+    <form [formGroup]="form_fornecedor" class="form-fornecedor" (submit)="onSubmit()">
+        <mat-grid-list cols="1" rowHeight="310px">
+            <mat-grid-tile>
+                <div class="controles-container">
+                    <input type="hidden" formControlName="asset_owner">
+                    <mat-form-field>
+                        <input formControlName="lote_id" [(ngModel)]="lote.lote_id" matInput placeholder="Id do Lote"
+                            required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="status_fornecedor" [(ngModel)]="lote.status_fornecedor" matInput
+                            placeholder="Status" required readonly>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="data_inicio_fornecedor" [value]="lote.data_inicio_fornecedor" matInput
+                            [matDatepicker]="data_inicio_fornecedor" placeholder="Data Entrada" required readonly>
+                        <mat-datepicker-toggle matSuffix [for]="data_inicio_fornecedor"></mat-datepicker-toggle>
+                        <mat-datepicker #data_inicio_fornecedor></mat-datepicker>
+                        <mat-error>Este campo é mandatório</mat-error>
+                    </mat-form-field>
+                    <div class="button-row">
+                        <button mat-raised-button color="primary" [disabled]="form_fornecedor.invalid"
+                            type="submit">Submeter</button>
+                        <button mat-raised-button color="accent" (click)="onClear()">Limpar</button>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>

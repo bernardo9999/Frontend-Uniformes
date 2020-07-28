@@ -1,0 +1,74 @@
+<mat-toolbar>
+    <span>{{"Processar Lote - Contrato: "}}{{lote.id}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="button-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="form_fabricante" class="form-fabricante" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="310px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="asset_owner">
+                <mat-form-field>
+                    <input formControlName="lote_id" [(ngModel)]="lote.lote_id" matInput placeholder="Id do Lote"
+                        required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select formControlName="status_fabricante" [(ngModel)]="lote.status_fabricante"
+                        placeholder="Status" readonly required>
+                        <ng-container *ngFor="let opcao of status">
+                            <mat-option value="{{opcao.id}}">{{opcao.value}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="data_inicio_fabricante" matInput [value]="lote.data_inicio_fabricante"
+                        [matDatepicker]="data_inicio_fabricante" placeholder="Data Entrada" required readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data_inicio_fabricante"></mat-datepicker-toggle>
+                    <mat-datepicker #data_inicio_fabricante></mat-datepicker>
+                    <mat-error>Este campo é mandatório</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="data_estimada_fabricante" matInput [value]="lote.data_estimada_fabricante"
+                        [matDatepicker]="data_estimada_fabricante" placeholder="Data Estimada Conclusão" required
+                        readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data_estimada_fabricante"></mat-datepicker-toggle>
+                    <mat-datepicker #data_estimada_fabricante></mat-datepicker>
+                </mat-form-field>
+
+                <div class="button-row">
+                    <button mat-raised-button color="primary" [disabled]="form_fabricante.invalid"
+                        type="submit">Submeter</button>
+                    <button mat-raised-button color="accent" (click)="onClear()">Limpar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <div class="controles-container">
+                <div class="add-bottom-padding">
+                    <label>Qualidade: </label>
+                    <mat-radio-group formControlName="qualidade_fabricante" [(ngModel)]="lote.qualidade_fabricante"
+                        required>
+                        <mat-radio-button value="Alta">Alta</mat-radio-button>
+                        <mat-radio-button value="Baixa">Baixa</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="valida_quantidade_fabricante"
+                        [(ngModel)]="lote.valida_quantidade_fabricante" color="primary" required>Possui capacidade de
+                        entrega
+                    </mat-checkbox>
+                </div>
+                <mat-form-field>
+                    <input formControlName="data_fim_fabricante" matInput [value]="lote.data_fim_fabricante"
+                        [matDatepicker]="data_fim_fabricante" placeholder="Data Saída" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data_fim_fabricante"></mat-datepicker-toggle>
+                    <mat-datepicker #data_fim_fabricante></mat-datepicker>
+                    <mat-hint align="end">SLA: 7 dias da data de inicio</mat-hint>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

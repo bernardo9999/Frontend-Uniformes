@@ -1,0 +1,51 @@
+<mat-toolbar>
+    <span>{{"Processar Lote - Contrato: "}}{{lote.id}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="button-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="form_transportadora" class="form-transportadora" (submit)="onSubmit()">
+    <mat-grid-list cols="1" rowHeight="400px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="asset_owner">
+                <mat-form-field>
+                    <input formControlName="lote_id" [(ngModel)]="lote.lote_id" matInput placeholder="Id do Lote" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select formControlName="status_transportadora" [(ngModel)]="lote.status_transportadora" placeholder="Status" required>
+                        <ng-container *ngFor="let opcao of status">
+                            <mat-option value="{{opcao.id}}">{{opcao.value}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="data_inicio_transportadora" matInput [value]="lote.data_inicio_transportadora"
+                        [matDatepicker]="data_inicio_transportadora" placeholder="Data Entrada" required readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data_inicio_transportadora"></mat-datepicker-toggle>
+                    <mat-datepicker #data_inicio_transportadora></mat-datepicker>
+                    <mat-error>Este campo é mandatório</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="data_estimada_transportadora" matInput [value]="lote.data_estimada_transportadora"
+                        [matDatepicker]="data_estimada_transportadora" placeholder="Data Estimada Conclusão" required readonly>
+                    <mat-datepicker-toggle matSuffix [for]="data_estimada_transportadora"></mat-datepicker-toggle>
+                    <mat-datepicker #data_estimada_transportadora></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="data_fim_transportadora" matInput [value]="lote.data_fim_transportadora" [matDatepicker]="data_fim_transportadora"
+                        placeholder="Data Saída">
+                    <mat-datepicker-toggle matSuffix [for]="data_fim_transportadora"></mat-datepicker-toggle>
+                    <mat-datepicker #data_fim_transportadora></mat-datepicker>
+                    <mat-hint align="end">SLA: 2 dias da data de inicio</mat-hint>
+                </mat-form-field>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" [disabled]="form_transportadora.invalid"
+                        type="submit">Submeter</button>
+                    <button mat-raised-button color="accent" (click)="onClear()">Limpar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

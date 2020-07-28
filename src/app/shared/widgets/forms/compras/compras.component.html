@@ -1,0 +1,45 @@
+<mat-toolbar>
+    <span>{{"Criar/ Atualizar Lote - Contrato: "}}{{lote.id}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="button-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<div mat-dialog-content>
+    <form [formGroup]="form_compras" class="form-compras" (submit)="onSubmit()">
+        <mat-grid-list cols="1" rowHeight="350px">
+            <mat-grid-tile>
+                <div class="controles-container">
+                    <input type="hidden" formControlName="asset_owner">
+                    <mat-form-field>
+                        <input formControlName="lote_id" [(ngModel)]="lote.lote_id" matInput placeholder="Id do Lote"
+                            required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="status_compras" [(ngModel)]="lote.status_compras" matInput
+                            placeholder="Status" required readonly>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input formControlName="quantidade_compras" [(ngModel)]="lote.quantidade_compras" matInput
+                            type="number" placeholder="Quantidade">
+                        <mat-error>Este campo é mandatório</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput formControlName="data_inicio_compras" [value]="lote.data_inicio_compras"
+                            [matDatepicker]="data_inicio_compras" placeholder="Data Pedido" required readonly>
+                        <mat-datepicker-toggle matSuffix [for]="data_inicio_compras"></mat-datepicker-toggle>
+                        <mat-datepicker #data_inicio_compras disabled="false"></mat-datepicker>
+                        <mat-error>Este campo é mandatório</mat-error>
+                    </mat-form-field>
+                    <div class="button-row">
+                        <mat-dialog-actions>
+                            <button mat-raised-button color="primary" [disabled]="form_compras.invalid"
+                                type="submit">Submeter</button>
+                            <button mat-raised-button color="accent" (click)="onClear()">Limpar</button>
+                        </mat-dialog-actions>
+                    </div>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>
